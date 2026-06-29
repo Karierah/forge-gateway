@@ -3,6 +3,7 @@ from telegram.ext import ContextTypes
 from keyboards import question1_keyboard, question2_keyboard, question3_keyboard
 from config import ADMIN_ID, INVITE_LINK
 
+
 async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
 
@@ -50,43 +51,41 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     elif query.data == "yes":
 
-    user = update.effective_user
+        user = update.effective_user
 
-    # Send admin notification
-    await context.bot.send_message(
-        chat_id=ADMIN_ID,
-        text=(
-            "🔥 NEW APPLICATION ACCEPTED\n\n"
-            f"Name: {user.first_name}\n"
-            f"Username: @{user.username if user.username else 'No username'}\n"
-            f"User ID: {user.id}\n\n"
-            f"Invite Link Sent: {INVITE_LINK}"
+        await context.bot.send_message(
+            chat_id=ADMIN_ID,
+            text=(
+                "🔥 NEW APPLICATION ACCEPTED\n\n"
+                f"Name: {user.first_name}\n"
+                f"Username: @{user.username if user.username else 'No username'}\n"
+                f"User ID: {user.id}\n\n"
+                f"Invite Link Sent: {INVITE_LINK}"
+            )
         )
-    )
 
-    # Send user invite link
-    await query.edit_message_text(
-        "🔥 Application Accepted\n\n"
-        "Welcome to The Forge.\n\n"
-        f"Join here: {INVITE_LINK}"
-    )
+        await query.edit_message_text(
+            "🔥 Application Accepted\n\n"
+            "Welcome to The Forge.\n\n"
+            f"Join here: {INVITE_LINK}"
+        )
 
     elif query.data == "no":
 
-    user = update.effective_user
+        user = update.effective_user
 
-    await context.bot.send_message(
-        chat_id=ADMIN_ID,
-        text=(
-            "❌ APPLICATION REJECTED\n\n"
-            f"Name: {user.first_name}\n"
-            f"Username: @{user.username if user.username else 'No username'}\n"
-            f"User ID: {user.id}"
+        await context.bot.send_message(
+            chat_id=ADMIN_ID,
+            text=(
+                "❌ APPLICATION REJECTED\n\n"
+                f"Name: {user.first_name}\n"
+                f"Username: @{user.username if user.username else 'No username'}\n"
+                f"User ID: {user.id}"
+            )
         )
-    )
 
-    await query.edit_message_text(
-        "Thank you for applying.\n\n"
-        "At this time, The Forge is for those fully committed.\n\n"
-        "You may reapply in the future."
-    )
+        await query.edit_message_text(
+            "Thank you for applying.\n\n"
+            "At this time, The Forge is for those fully committed.\n\n"
+            "You may reapply in the future."
+        )
